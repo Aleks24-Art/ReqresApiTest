@@ -25,7 +25,7 @@ public class ApiTest {
             .build();
 
     @Test
-    public void testGetAvailablePage() {
+    public void testGetAvailablePage_shouldReturnPageOfUsers() {
         given()
                 .spec(requestSpec)
                 .get("users?page=1")
@@ -49,7 +49,7 @@ public class ApiTest {
     }
 
     @Test
-    public void testGetUnavailablePage() {
+    public void testGetUnavailablePage_shouldReturnEmpty() {
         given().spec(requestSpec)
                 .get("/users?page=999")
                 .then()
@@ -58,7 +58,7 @@ public class ApiTest {
     }
 
     @Test
-    public void testPostCreateUser() {
+    public void testPostCreateUser_shouldReturnSomeUserCreatingInfo() {
         JSONObject userData = new JSONObject();
         userData.put("name", "Billq");
         userData.put("job", "Developer1");
@@ -80,7 +80,7 @@ public class ApiTest {
     }
 
     @Test
-    public void testPutUpdateUser() {
+    public void testPutUpdateUser_shouldReturnSomeUserUpdatingInfo() {
         JSONObject updatedUserData = new JSONObject();
         updatedUserData.put("name", "Bill");
         updatedUserData.put("job", "Senior developer");
@@ -98,8 +98,8 @@ public class ApiTest {
         assertNotNull(updatedUser.get("updatedAt"));
     }
 
-    @Test()
-    public void testDelete() {
+    @Test
+    public void testDelete_shouldReturnStatusCode() {
         given()
                 .spec(requestSpec)
                 .when()
