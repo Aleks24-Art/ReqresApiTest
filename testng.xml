@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="true" thread-count="5">
+<suite name="All Test Suite" parallel="methods" thread-count="5">
     <test group-by-instances="true" name="ApiTest">
         <classes>
-            <class name="reqres.api.ApiTest"/>
+            <class name="reqres.api.ReqresApiTest"/>
         </classes>
     </test>
 </suite>

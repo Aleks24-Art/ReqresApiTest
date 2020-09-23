@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
-public class ApiTest {
+public class ReqresApiTest {
 
     private final static String BASE_URL = "https://reqres.in/api/";
 
@@ -99,7 +99,7 @@ public class ApiTest {
     }
 
     @Test
-    public void testDelete_shouldReturnStatusCode() {
+    public void testDelete_shouldReturnNoContent() {
         given()
                 .spec(requestSpec)
                 .when()
