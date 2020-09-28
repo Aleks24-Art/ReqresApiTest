@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+import reqres.api.model.JsonUser;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -59,9 +60,9 @@ public class ReqresApiTest {
 
     @Test
     public void testPostCreateUser_shouldReturnSomeUserCreatingInfo() {
-        JSONObject userData = new JSONObject();
-        userData.put("name", "Billq");
-        userData.put("job", "Developer1");
+        JSONObject userData =
+                new JsonUser("Bill", "Developer")
+                        .buildJsonObject();
 
         Response response = given()
                 .spec(requestSpec)
@@ -71,7 +72,6 @@ public class ReqresApiTest {
                 .then()
                 .statusCode(201).extract().response();
 
-        System.out.println(response.getBody().toString());
         JSONObject createdUser = new JSONObject(response.getBody().print());
 
         assertNotNull(createdUser.get("id"));
@@ -81,9 +81,9 @@ public class ReqresApiTest {
 
     @Test
     public void testPutUpdateUser_shouldReturnSomeUserUpdatingInfo() {
-        JSONObject updatedUserData = new JSONObject();
-        updatedUserData.put("name", "Bill");
-        updatedUserData.put("job", "Senior developer");
+        JSONObject updatedUserData =
+                new JsonUser("Bill", "Senior developer")
+                        .buildJsonObject();
 
         Response response = given()
                 .spec(requestSpec)
