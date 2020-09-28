@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import org.testng.annotations.Test;
 import reqres.api.model.JsonUser;
 
+import static java.net.HttpURLConnection.*;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.assertNotNull;
@@ -31,7 +33,7 @@ public class ReqresApiTest {
                 .spec(requestSpec)
                 .get("users?page=1")
                 .then()
-                .statusCode(200)
+                .statusCode(HTTP_OK)
                 .body("page", equalTo(1))
                 .body("per_page", equalTo(6))
                 .body("data.id[0]", equalTo(1))
@@ -54,7 +56,7 @@ public class ReqresApiTest {
         given().spec(requestSpec)
                 .get("/users?page=999")
                 .then()
-                .statusCode(200)
+                .statusCode(HTTP_OK)
                 .body("data", empty());
     }
 
@@ -70,7 +72,7 @@ public class ReqresApiTest {
                 .when()
                 .post("users")
                 .then()
-                .statusCode(201).extract().response();
+                .statusCode(HTTP_CREATED).extract().response();
 
         JSONObject createdUser = new JSONObject(response.getBody().print());
 
@@ -91,7 +93,7 @@ public class ReqresApiTest {
                 .when()
                 .put("users/2")
                 .then()
-                .statusCode(200).extract().response();
+                .statusCode(HTTP_OK).extract().response();
 
         JSONObject updatedUser = new JSONObject(response.getBody().print());
 
@@ -105,6 +107,6 @@ public class ReqresApiTest {
                 .when()
                 .delete("users/2")
                 .then()
-                .statusCode(204);
+                .statusCode(HTTP_NO_CONTENT);
     }
 }
